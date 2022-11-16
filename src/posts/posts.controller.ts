@@ -40,7 +40,7 @@ export class PostsController {
     return this.postsService.update(id, updateUserDto);
   }
 
-  @Delete()
+  @Delete(':id')
   delete(@Param('id', ParseObjectIdPipe) id: string) {
     return this.postsService.delete(id);
   }

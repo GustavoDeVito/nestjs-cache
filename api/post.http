@@ -22,4 +22,4 @@ Content-Type: application/json
 }
 
 ###
-Delete http://localhost:3000/posts/ddd HTTP/1.1
+Delete http://localhost:3000/posts/6374e6912717ebba3014cc0b HTTP/1.1
