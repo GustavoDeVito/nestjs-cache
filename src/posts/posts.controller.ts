@@ -1,11 +1,15 @@
 import {
   Body,
+  CacheInterceptor,
+  CacheKey,
+  CacheTTL,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ParseObjectIdPipe } from './pipes/objectId.pipe';
 import { PostsService } from './posts.service';
@@ -23,6 +27,9 @@ export class PostsController {
   }
 
   @Get()
+  @CacheKey('posts-findAll')
+  @CacheTTL(10)
+  @UseInterceptors(CacheInterceptor)
   findAll() {
     return this.postsService.findAll();
   }
