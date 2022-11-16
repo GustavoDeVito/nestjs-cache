@@ -5,8 +5,8 @@ import { Cache } from 'cache-manager';
 export class TestsService {
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
-  async create() {
-    await this.cacheManager.set('test', { message: 'Testing' }, { ttl: 3000 });
+  async create(data: any) {
+    await this.cacheManager.set('test', data);
 
     return 'This action adds a new test';
   }
