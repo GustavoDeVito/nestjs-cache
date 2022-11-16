@@ -19,10 +19,6 @@ export class PostsService {
     @Inject(CACHE_MANAGER) protected readonly cacheManager: Cache,
   ) {}
 
-  async cache() {
-    return await this.cacheManager.store.keys();
-  }
-
   async create(createPostDto: CreatePostDto) {
     const exist = await this.postModel
       .exists({ title: createPostDto?.title })

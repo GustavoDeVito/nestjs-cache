@@ -1,0 +1,4 @@
+GET http://localhost:3000/caches/ HTTP/1.1
+
+###
+GET http://localhost:3000/caches/posts-findAll HTTP/1.1

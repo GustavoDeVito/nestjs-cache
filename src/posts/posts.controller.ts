@@ -21,11 +21,6 @@ import { ObjectId } from 'mongoose';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Get('cache/keys')
-  cache() {
-    return this.postsService.cache();
-  }
-
   @Post()
   create(@Body() createUserDto: CreatePostDto) {
     return this.postsService.create(createUserDto);
@@ -33,7 +28,7 @@ export class PostsController {
 
   @Get()
   @CacheKey('posts-findAll')
-  @CacheTTL(10)
+  @CacheTTL(10) // seconds
   @UseInterceptors(CacheInterceptor)
   findAll() {
     return this.postsService.findAll();

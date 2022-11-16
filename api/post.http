@@ -1,6 +1,3 @@
-GET http://localhost:3000/posts/cache/keys HTTP/1.1
-
-####
 GET http://localhost:3000/posts/ HTTP/1.1
 
 ###
