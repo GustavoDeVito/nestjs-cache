@@ -6,7 +6,9 @@ import { PostsModule } from './posts/posts.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGODB_HOST),
+    MongooseModule.forRoot(process.env.MONGODB_HOST, {
+      dbName: process.env.MONGODB_DATABASE,
+    }),
     PostsModule,
   ],
 })

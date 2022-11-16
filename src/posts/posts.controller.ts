@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ParseObjectIdPipe } from './pipes/objectId.pipe';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -32,11 +40,8 @@ export class PostsController {
     return this.postsService.update(id, updateUserDto);
   }
 
-  @Put()
-  status(
-    @Query('id', ParseObjectIdPipe) id: string,
-    @Query('status') status: string,
-  ) {
-    return this.postsService.status(id, status);
+  @Delete()
+  delete(@Param('id', ParseObjectIdPipe) id: string) {
+    return this.postsService.delete(id);
   }
 }

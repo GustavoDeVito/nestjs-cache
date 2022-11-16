@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -8,7 +8,4 @@ export class CreatePostDto {
   @IsNotEmpty()
   @IsString()
   description: string;
-
-  @IsBoolean()
-  status: boolean;
 }

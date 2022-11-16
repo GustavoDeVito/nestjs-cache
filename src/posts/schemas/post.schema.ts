@@ -9,7 +9,7 @@ export class Post {
   title: string;
 
   @Prop({ required: true })
-  description: number;
+  description: string;
 
   @Prop({ default: true })
   status: boolean;
