@@ -6,16 +6,12 @@ export class TestsService {
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
   async create() {
-    await this.cacheManager.set('test', 'Testing', { ttl: 3000 });
+    await this.cacheManager.set('test', { message: 'Testing' }, { ttl: 3000 });
 
     return 'This action adds a new test';
   }
 
   async findOne() {
-    const cache = await this.cacheManager.get('test');
-
-    return {
-      cache,
-    };
+    return await this.cacheManager.get('test');
   }
 }
