@@ -1,7 +1,10 @@
+GET http://localhost:3000/posts/cache/keys HTTP/1.1
+
+####
 GET http://localhost:3000/posts/ HTTP/1.1
 
 ###
-GET http://localhost:3000/posts/6374e6912717ebba3014cc0b HTTP/1.1
+GET http://localhost:3000/posts/637527301f757b936412766b HTTP/1.1
 
 ###
 POST http://localhost:3000/posts/ HTTP/1.1

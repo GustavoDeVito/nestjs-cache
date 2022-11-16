@@ -21,6 +21,11 @@ import { ObjectId } from 'mongoose';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @Get('cache/keys')
+  cache() {
+    return this.postsService.cache();
+  }
+
   @Post()
   create(@Body() createUserDto: CreatePostDto) {
     return this.postsService.create(createUserDto);

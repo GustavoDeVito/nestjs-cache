@@ -1,9 +1,12 @@
 import {
   BadRequestException,
+  CACHE_MANAGER,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Cache } from 'cache-manager';
 import { Model, ObjectId } from 'mongoose';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -11,7 +14,14 @@ import { Post, PostDocument } from './schemas/post.schema';
 
 @Injectable()
 export class PostsService {
-  constructor(@InjectModel(Post.name) private postModel: Model<PostDocument>) {}
+  constructor(
+    @InjectModel(Post.name) private postModel: Model<PostDocument>,
+    @Inject(CACHE_MANAGER) protected readonly cacheManager: Cache,
+  ) {}
+
+  async cache() {
+    return await this.cacheManager.store.keys();
+  }
 
   async create(createPostDto: CreatePostDto) {
     const exist = await this.postModel
@@ -24,11 +34,14 @@ export class PostsService {
 
     const post = new this.postModel(createPostDto);
 
+    await this.cacheManager.store.del('posts-findAll');
+
     return post.save();
   }
 
   findAll(): Promise<Post[]> {
-    return this.postModel.find().exec();
+    console.log('DB');
+    return this.postModel.find().sort({ title: 1 }).exec();
   }
 
   async findOne(id: ObjectId): Promise<Post> {
@@ -48,6 +61,8 @@ export class PostsService {
       throw new NotFoundException('Post not found');
     }
 
+    await this.cacheManager.store.del('posts-findAll');
+
     return this.postModel.findByIdAndUpdate(id, updatePostDto, { new: true });
   }
 
@@ -57,6 +72,8 @@ export class PostsService {
     if (!exist) {
       throw new NotFoundException('Post not found');
     }
+
+    await this.cacheManager.store.del('posts-findAll');
 
     return this.postModel.findByIdAndUpdate(
       id,

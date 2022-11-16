@@ -12,11 +12,14 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
     CacheModule.register<ClientOpts>({
+      isGlobal: true,
       store: redisStore,
       socket: {
         host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT,
       },
+      ttl: 5, // seconds
+      max: 10, // maximum number of items in cache
     }),
   ],
   controllers: [PostsController],
